@@ -1,0 +1,11 @@
+﻿################################################################################
+# Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/BlazorPdf/.vs/BlazorPdf
+/BlazorPdf/BlazorPdf/obj
+/BlazorPdf/DemoApp/obj
+/BlazorPdf/DemoApp/DemoApp.csproj.user
+/BlazorPdf/BlazorPdf/bin/Debug/net8.0
+/BlazorPdf/DemoApp/bin/Debug/net8.0

@@ -5,18 +5,18 @@ using Microsoft.JSInterop;
 
 namespace BlazorPdf
 {
-     public class PdfViewerJsInterop : IAsyncDisposable
+    public class PdfViewerJsInterop : IAsyncDisposable
     {
         private readonly Lazy<Task<IJSObjectReference>> moduleTask;
 
         public PdfViewerJsInterop(IJSRuntime jsRuntime)
         {
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", "./_content/BlazorPdf/blazorpdf.js").AsTask());
+                "import", "./_content/BlazorPdf/blazorpdf.js?v=" + DateTime.UtcNow.Ticks).AsTask());
         }
 
-        public async ValueTask<PdfViewerInitializedDto> InitializeAsync(
-            DotNetObjectReference<PdfViewer> dotNetHelper,
+        internal async ValueTask<PdfViewerInitializedDto> InitializeAsync(
+            DotNetObjectReference<PdfViewer.BlazorPdfProxy> dotNetHelper,
             ElementReference container,
             InitializationOptionsDto initializationOptions)
         {
@@ -32,6 +32,20 @@ namespace BlazorPdf
                 var module = await moduleTask.Value;
                 await module.DisposeAsync();
             }
+        }
+
+        public async Task GoToPageAsync(string elementId, int pageNumber)
+        {
+            var module = await moduleTask.Value;
+
+            await module.InvokeVoidAsync("renderPage", elementId, pageNumber);
+        }
+
+        internal async Task StartSignaturePositionAsync(string elementId, int signatureIndex)
+        {
+            var module = await moduleTask.Value;
+
+            await module.InvokeVoidAsync("startSignaturePosition", elementId, signatureIndex);
         }
     }
 }

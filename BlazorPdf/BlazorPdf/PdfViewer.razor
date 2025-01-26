@@ -1,5 +1,53 @@
 ﻿
 
 <div class="blazorpdf" style="@this.Style" id="@this.Id" @ref="this.Container">
-    This component is defined in the <strong>BlazorPdf</strong> library.
+    <div class="blazorpdf-header">
+        <nav class="blazorpdf-page-selector">
+            <button class="blazorpdf-prev" @onclick="this.PreviousPageAsync">
+                <i class="fas fa-chevron-left fa-2x" />
+            </button>
+            <input type="number" class="blazorpdf-page" value="@this.Page" @onchange="e=>this.GoToPageAsync(e.Value!.ToString()!)" />
+            <span>/ @this.TotalPages</span>
+            <button class="blazorpdf-next" @onclick="this.NextPageAsync">
+                <i class="fas fa-chevron-right fa-2x" />
+            </button>
+        </nav>
+    </div>
+    <div class="blazorpdf-content">
+        <div class="blazorpdf-left-bar">
+
+            @if (this.SignatureLocations != null && this.SignatureLocations.Any())
+            {
+                <div class="signatures-block">
+                    <div class="section-title">
+                        @this.Labels.Signatures
+                    </div>
+
+                    <div class="blazorpdf-signatures">
+                        @for (var index = 0; index < this.SignatureLocations.Count(); index++)
+                        {
+                            var signatureLocation = this.SignatureLocations.ElementAt(index);
+
+                            <button class="signature-button">
+                                <div class="blazorpdf-signature-name">
+                                    @signatureLocation.DisplayName
+                                </div>
+                                <i class="far fa-crosshairs fa-2x" title="@this.Labels.Position" @onclick="@(()=>this.StartSignaturePositionAsync(signatureLocation))"></i>
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
+
+
+            <div class="blazorpdf-validate">
+                <button class="blazorpdf-validate-button" @onclick="this.ValidateAsync">
+                    <i class="fas fa-check-circle fa-2x" /> @this.Labels.Validate
+                </button>
+            </div>
+        </div>
+        <canvas id="@($"{this.Id}-canvas")" />
+    </div>
+
 </div>
+

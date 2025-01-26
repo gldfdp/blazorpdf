@@ -9,5 +9,7 @@ namespace BlazorPdf.Dto
     public record InitializationOptionsDto
     {
         public required string Url { get; init; }
+
+        public IEnumerable<SignaturePositionDto>? Signatures { get; set; }
     }
 }

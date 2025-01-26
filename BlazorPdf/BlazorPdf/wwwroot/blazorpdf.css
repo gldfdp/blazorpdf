@@ -1,0 +1,118 @@
+﻿.blazorpdf {
+    font-family: 'Arial', sans-serif;
+}
+
+    .blazorpdf .canvas {
+    }
+
+.blazorpdf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px 10px 200px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.blazorpdf-page-selector {
+    display: flex;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+    .blazorpdf-page-selector .blazorpdf-prev, .blazorpdf-page-selector .blazorpdf-next {
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        background: transparent;
+        display: inline-block;
+        border: none;
+        cursor: pointer;
+    }
+
+    .blazorpdf-page-selector .blazorpdf-page {
+        display: inline-block;
+        margin: 0 10px;
+        width: 100px;
+        flex: 1;
+    }
+
+.blazorpdf-content {
+    display: flex;
+    justify-content: start;
+    align-items: stretch;
+    height: 100%;
+}
+
+    .blazorpdf-content canvas {
+        display: block;
+    }
+
+    .blazorpdf-content .blazorpdf-left-bar {
+        display: flex;
+        width: 200px;
+        max-height: 100%;
+        background: #f8f9fa;
+        justify-content: space-between;
+        flex-flow: column;
+        font-size: 12px;
+    }
+
+.blazorpdf-validate {
+    align-self: center;
+    margin-bottom: 12px;
+}
+
+.blazorpdf-validate-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: olive;
+    color: white;
+    cursor: pointer;
+}
+
+    .blazorpdf-validate-button i {
+        margin-right: 5px;
+    }
+
+.blazorpdf-left-bar .section-title {
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.signatures-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: stretch;
+    padding: 10px;
+}
+
+.signature-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #188cd9;
+    color: white;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+    .signature-button .blazorpdf-signature-name {
+        flex: 1;
+    }
+
+    .signature-button i {
+        margin-right: 5px;
+        align-self: end;
+        cursor: pointer;
+    }

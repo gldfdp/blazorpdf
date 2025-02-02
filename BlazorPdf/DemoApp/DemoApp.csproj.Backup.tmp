@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
     <ProjectReference Include="..\Gldfdp.Blazor.Pdf\Gldfdp.Blazor.Pdf.csproj" />
   </ItemGroup>
 

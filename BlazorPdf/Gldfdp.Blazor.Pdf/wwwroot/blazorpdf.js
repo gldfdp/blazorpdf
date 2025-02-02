@@ -17,12 +17,12 @@ export function init(dotnetHelper, element, options) {
 
         const fontAwesomeLink = document.createElement("link");
         fontAwesomeLink.rel = "stylesheet";
-        fontAwesomeLink.href = "/_content/BlazorPdf/fontawesome.min.css";
+        fontAwesomeLink.href = "/_content/Gldfdp.Blazor.Pdf/fontawesome.min.css";
         document.head.appendChild(fontAwesomeLink);
 
         const fontAwesomeRegularLink = document.createElement("link");
         fontAwesomeRegularLink.rel = "stylesheet";
-        fontAwesomeRegularLink.href = "/_content/BlazorPdf/solid.min.css";
+        fontAwesomeRegularLink.href = "/_content/Gldfdp.Blazor.Pdf/solid.min.css";
         document.head.appendChild(fontAwesomeRegularLink);
     }
 
@@ -31,7 +31,7 @@ export function init(dotnetHelper, element, options) {
     // we we load the css
     const styleLink = document.createElement("link");
     styleLink.rel = "stylesheet";
-    styleLink.href = "/_content/BlazorPdf/blazorpdf.css?v=" + new Date().getTime();
+    styleLink.href = "/_content/Gldfdp.Blazor.Pdf/blazorpdf.css?v=" + new Date().getTime();
     document.head.appendChild(styleLink);
 
     var viewer = new PdfViewer(dotnetHelper, element, options);

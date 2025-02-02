@@ -1,4 +1,4 @@
-using BlazorPdf;
+using Gldfdp.Blazor.Pdf;
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

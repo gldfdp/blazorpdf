@@ -1,9 +1,9 @@
-using BlazorPdf.Dto;
+using Gldfdp.Blazor.Pdf.Dto;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace BlazorPdf
+namespace Gldfdp.Blazor.Pdf
 {
     public partial class PdfViewer
     {
@@ -108,15 +108,11 @@ namespace BlazorPdf
 
         protected async Task StartSignaturePositionAsync(SignatureLocation signatureLocation)
         {
-            Console.WriteLine("Start signature position");
-
             signatureLocation.Page = this.Page;
-            _currentAction = PdfViewerAction.StartSignaturePosition;
 
             var signatureIndex = this.SignatureLocations!.ToList().IndexOf(signatureLocation);
 
             await this.PdfViewerJsInterop.StartSignaturePositionAsync(this.Id, signatureIndex);
-
         }
 
         protected async Task NextPageAsync()
@@ -136,8 +132,6 @@ namespace BlazorPdf
 
         }
 
-        private PdfViewerAction _currentAction = PdfViewerAction.None;
-
         internal class BlazorPdfProxy
         {
             public BlazorPdfProxy(PdfViewer pdfViewer)
@@ -156,8 +150,6 @@ namespace BlazorPdf
             [JSInvokable]
             public void OnSignaturePosition(SignaturePositionDto position)
             {
-                Console.WriteLine($"Signature position set at {position.X}, {position.Y}");
-               
                 var signatureLocation = this.PdfViewer.SignatureLocations!.ElementAt(position.Index);
                 signatureLocation.X = position.X;
                 signatureLocation.Y = position.Y;

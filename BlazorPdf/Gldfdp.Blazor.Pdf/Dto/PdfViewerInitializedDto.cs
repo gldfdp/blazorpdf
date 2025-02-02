@@ -1,4 +1,4 @@
-﻿namespace BlazorPdf.Dto
+﻿namespace Gldfdp.Blazor.Pdf.Dto
 {
     public class PdfViewerInitializedDto
     {

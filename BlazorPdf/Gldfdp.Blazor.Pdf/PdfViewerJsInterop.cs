@@ -1,9 +1,9 @@
-using BlazorPdf.Dto;
+using Gldfdp.Blazor.Pdf.Dto;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace BlazorPdf
+namespace Gldfdp.Blazor.Pdf
 {
     public class PdfViewerJsInterop : IAsyncDisposable
     {
@@ -11,8 +11,13 @@ namespace BlazorPdf
 
         public PdfViewerJsInterop(IJSRuntime jsRuntime)
         {
+#if DEBUG
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", "./_content/BlazorPdf/blazorpdf.js?v=" + DateTime.UtcNow.Ticks).AsTask());
+                "import", "./_content/Gldfdp.Blazor.Pdf/blazorpdf.js?v=" + DateTime.UtcNow.Ticks).AsTask());
+#else
+            moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
+                "import", "./_content/Gldfdp.Blazor.Pdf/blazorpdf.js").AsTask());
+#endif
         }
 
         internal async ValueTask<PdfViewerInitializedDto> InitializeAsync(

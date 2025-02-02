@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace BlazorPdf
+namespace Gldfdp.Blazor.Pdf
 {
     public static class Registry
     {

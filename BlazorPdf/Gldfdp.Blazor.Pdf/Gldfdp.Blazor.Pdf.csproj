@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Authors>G. Larreur de Farcy</Authors>
+		<Description>This package provides the ability to display pdf and positionate  signatures on PDF </Description>
+		<Copyright>G.Larreur</Copyright>
+		<Title>Blazor PDF viewer and signature locations</Title>
+		<PackageProjectUrl>https://github.com/gldfdp/Gldfdp.Blazor.Pdf</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/gldfdp/Gldfdp.Blazor.Pdf</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>blazor;pdf;signature;</PackageTags>
+		<AssemblyVersion>0.0.1</AssemblyVersion>
+		<Version>0.0.1</Version>
+		<SignAssembly>False</SignAssembly>
+		<SignAssembly>False</SignAssembly>
+		<IsPackable>True</IsPackable>
+		<PackageId>Gldfdp.Blazor.Pdf</PackageId>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="docs\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.12" />
+	</ItemGroup>
+
+</Project>

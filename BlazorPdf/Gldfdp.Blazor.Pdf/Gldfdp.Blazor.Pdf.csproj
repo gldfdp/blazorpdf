@@ -13,8 +13,8 @@
 		<RepositoryUrl>https://github.com/gldfdp/Gldfdp.Blazor.Pdf</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>blazor;pdf;signature;</PackageTags>
-		<AssemblyVersion>0.0.1</AssemblyVersion>
-		<Version>0.0.1</Version>
+		<AssemblyVersion>0.0.3</AssemblyVersion>
+		<Version>0.0.3</Version>
 		<SignAssembly>False</SignAssembly>
 		<SignAssembly>False</SignAssembly>
 		<IsPackable>True</IsPackable>

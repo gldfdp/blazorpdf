@@ -60,9 +60,28 @@ export function startSignaturePosition(elementId, signatureIndex) {
     viewer.startSignaturePosition(signatureIndex);
 }
 
+export function updateSignatureLocations(elementId, locations) {
+
+    console.log("update signature locations", elementId, locations);
+
+
+    var viewer = instances[elementId];
+    if (!viewer) {
+        console.error("Viewer not found", elementId, instances);
+        return;
+    }
+
+    viewer.updateSignatureLocations(locations);
+}
+
 const instances = [];
 
 class PdfViewer {
+
+    UNITTYPE_MM = 0;
+    UNITTYPE_PX = 10;
+    YPOSITIONTYPE_FROMTOP = 0;
+    YPOSITIONTYPE_FROMBOTTOM = 10;
 
     signatures = [];
 
@@ -118,6 +137,24 @@ class PdfViewer {
 
             resolve({ elementId: this.element.id, pageCount: this.pageCount });
         });
+    }
+
+    async updateSignatureLocations(locations) {
+        if (locations) {
+            this.signatures = locations.map(signature => {
+                return {
+                    displayName: signature.displayName,
+                    height: signature.height,
+                    index: signature.index,
+                    page: signature.page,
+                    width: signature.width,
+                    x: signature.x,
+                    y: signature.y
+                };
+            });
+        }
+
+        await this.renderPage(this.currentPage);
     }
 
     async handleCanvasClick(e) {
@@ -182,8 +219,10 @@ class PdfViewer {
     }
 
     async handleSignaturePosition(x, y) {
-        this.currentSignature.x = this.xToMillimeters(x);
-        this.currentSignature.y = this.yToMillimeters(y);
+        this.currentSignature.x = this.xToUnit(x);
+
+        this.currentSignature.y = this.yToUnit(y);
+
         this.currentSignature.page = this.currentPage;
 
         this.canvas.style.cursor = "auto";
@@ -196,7 +235,11 @@ class PdfViewer {
         this.dotnetHelper.invokeMethodAsync("OnSignaturePosition", this.currentSignature);
     }
 
-    xToMillimeters(x) {
+    xToUnit(x) {
+
+        if (this.options.unitType === this.UNITTYPE_PX) {
+            return x;
+        }
 
         var width = this.page.view[2] - this.page.view[0];
         var widthInches = width / 72;
@@ -205,14 +248,30 @@ class PdfViewer {
         return Math.round((x / this.canvas.width) * widthMillimeters);
     }
 
-    yToMillimeters(y) {
+    yToUnit(y) {
+
         var height = this.page.view[3] - this.page.view[1];
+
+        if (this.options.unitType === this.UNITTYPE_PX) {
+
+            var result = Math.round(this.options.yPositionType === this.YPOSITIONTYPE_FROMBOTTOM ? height - y : y)
+
+            console.log("yToUnit", result, height);
+
+            return result;
+        }
+
         var heightInches = height / 72;
         var heightMillimeters = heightInches * 25.4;
         return Math.round((y / this.canvas.height) * heightMillimeters);
     }
 
     xToCanvasX(x) {
+
+        if (this.options.unitType === this.UNITTYPE_PX) {
+            return x;
+        }
+
         var width = this.page.view[2] - this.page.view[0];
         var widthInches = width / 72;
         var widthMillimeters = widthInches * 25.4;
@@ -221,14 +280,25 @@ class PdfViewer {
     }
 
     yToCanvasY(y) {
+
         var height = this.page.view[3] - this.page.view[1];
+
+        if (this.options.unitType === this.UNITTYPE_PX) {
+
+            var result = Math.round(this.options.yPositionType === this.YPOSITIONTYPE_FROMBOTTOM ? height - y : y)
+
+            console.log("yToCanvasY", result, height);
+
+            return result;
+        }
+
         var heightInches = height / 72;
         var heightMillimeters = heightInches * 25.4;
         return (y / heightMillimeters) * this.canvas.height;
     }
 
     renderSignature(signature) {
-       
+
         const x = this.xToCanvasX(signature.x);
         const y = this.yToCanvasY(signature.y);
 

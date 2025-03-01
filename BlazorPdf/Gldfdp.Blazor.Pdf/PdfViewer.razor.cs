@@ -34,6 +34,12 @@ namespace Gldfdp.Blazor.Pdf
         public EventCallback<IEnumerable<SignatureLocation>> OnValidated { get; set; }
 
         [Parameter]
+        public UnitType UnitType { get; set; } = UnitType.Mm;
+
+        [Parameter]
+        public YPositionType YPositionType { get; set; } = YPositionType.FromTop;
+
+        [Parameter]
         public PdfViewerLabels Labels { get; set; } = new();
 
         [Inject]
@@ -44,8 +50,43 @@ namespace Gldfdp.Blazor.Pdf
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender)
+            if (firstRender || renderViewer)
             {
+                await this.InitializePdfAsync();
+            }
+
+            await base.OnAfterRenderAsync(firstRender);
+        }
+
+        string? _oldUrl = null;
+
+        bool renderViewer = false;
+        IEnumerable<SignatureLocation> _oldSignatureLocations = null;
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+
+            if (!string.Equals(this.PdfUrl, _oldUrl))
+            {
+                renderViewer = true;
+                _oldUrl = this.PdfUrl;
+            }
+
+            if (this.SignatureLocations != _oldSignatureLocations)
+            {
+                Console.WriteLine("Updating signature locations");
+
+                await this.PdfViewerJsInterop.UpdateSignatureLocations(this.Id, this.SignatureLocations);
+                _oldSignatureLocations = this.SignatureLocations!;
+            }
+        }
+
+        protected async Task InitializePdfAsync()
+        {
+            if (!string.IsNullOrWhiteSpace(this.PdfUrl))
+            {
+                Console.WriteLine("Initializing PDF viewer :" + PdfUrl);
                 InitializationOptionsDto options = new()
                 {
                     Url = this.PdfUrl,
@@ -58,17 +99,19 @@ namespace Gldfdp.Blazor.Pdf
                         Width = location.Width,
                         X = location.X,
                         Y = location.Y
-                    })
+                    }),
+                    UnitType = this.UnitType,
+                    YPositionType = this.YPositionType,
                 };
 
                 var instance = await this.PdfViewerJsInterop.InitializeAsync(this.objRef!, this.Container, options);
 
                 this.TotalPages = instance.PageCount;
 
+                renderViewer = false;
+
                 this.StateHasChanged();
             }
-
-            await base.OnAfterRenderAsync(firstRender);
         }
 
         protected override void OnInitialized()

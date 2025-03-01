@@ -52,5 +52,12 @@ namespace Gldfdp.Blazor.Pdf
 
             await module.InvokeVoidAsync("startSignaturePosition", elementId, signatureIndex);
         }
+
+        internal async Task UpdateSignatureLocations(string id, IEnumerable<SignatureLocation>? signatureLocations)
+        {
+            var module = await moduleTask.Value;
+
+            await module.InvokeVoidAsync("updateSignatureLocations", id, signatureLocations?.ToList());
+        }
     }
 }

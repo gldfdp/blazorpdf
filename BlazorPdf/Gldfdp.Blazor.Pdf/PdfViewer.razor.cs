@@ -61,7 +61,8 @@ namespace Gldfdp.Blazor.Pdf
         string? _oldUrl = null;
 
         bool renderViewer = false;
-        IEnumerable<SignatureLocation> _oldSignatureLocations = null;
+
+        IEnumerable<SignatureLocation>? _oldSignatureLocations = null;
 
         protected override async Task OnParametersSetAsync()
         {

@@ -176,7 +176,7 @@ class PdfViewer {
 
         console.log("page loaded", this.page);
 
-        const viewport = this.page.getViewport({ scale: this.scale });
+        const viewport = this.page.getViewport({ scale: this.scale, rotation: 360 });
 
         console.log("viewport", viewport);
 

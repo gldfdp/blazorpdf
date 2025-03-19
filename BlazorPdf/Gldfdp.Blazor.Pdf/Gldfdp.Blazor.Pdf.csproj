@@ -9,12 +9,12 @@
 		<Description>This package provides the ability to display pdf and positionate  signatures on PDF </Description>
 		<Copyright>G.Larreur</Copyright>
 		<Title>Blazor PDF viewer and signature locations</Title>
-		<PackageProjectUrl>https://github.com/gldfdp/Gldfdp.Blazor.Pdf</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/gldfdp/Gldfdp.Blazor.Pdf</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/gldfdp/blazorpdf</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/gldfdp/blazorpdf</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>blazor;pdf;signature;</PackageTags>
-		<AssemblyVersion>0.0.3</AssemblyVersion>
-		<Version>0.0.3</Version>
+		<AssemblyVersion>0.0.5</AssemblyVersion>
+		<Version>0.0.5</Version>
 		<SignAssembly>False</SignAssembly>
 		<SignAssembly>False</SignAssembly>
 		<IsPackable>True</IsPackable>
